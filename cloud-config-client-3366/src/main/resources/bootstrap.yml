@@ -1,0 +1,33 @@
+#消息总线的方式，刷新客户端配置，需要引入消息总线的包，并配置好
+#rabbitmq的环境以及相关yml配置，然后手动curl -X POST "http://localhost:3344/actuator/bus-refresh"
+#这样3355，3366都能刷新配置
+
+#通知指定的客户端，curl -X POST "http://localhost:3344/actuator/bus-refresh/config-client:3355"
+
+server:
+  port: 3366
+spring:
+  application:
+    name: config-client
+
+  cloud:
+    config:
+      label: master #分支名
+      name: config #配置文件名
+      profile: dev #读取后缀名
+      uri: http://localhost:3344 #配置中心地址
+  rabbitmq:
+    port: 5672
+    host: localhost
+    username: guest
+    password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,18 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/
+    register-with-eureka: false
+#ribbon:
+#  #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间
+#  ReadTimeout: 5000
+#  #指连接建立成功后，从服务器读取到可用资源所用时间
+#  ConnectTimeout: 5000
+
+  #开启feign的hystrix支持,默认是false
+feign:
+  hystrix:
+    enabled: true

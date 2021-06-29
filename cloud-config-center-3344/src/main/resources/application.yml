@@ -1,0 +1,32 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Garua/springcloud-config.git
+          search-paths:
+            - springcloud-config
+      label: master
+      #rabbbitmq相关
+  rabbitmq:
+    host: localhost
+    password: guest
+    username: guest
+    port: 5672
+# rabbitmq相关配置，暴露bus刷新点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka

@@ -1,0 +1,34 @@
+server:
+  port: 8803
+spring:
+  application:
+    name: cloud-stream-consumer
+
+  cloud:
+    stream:
+      binders: #此处配置需要绑定的rabbitmq服务
+        defaultRabbit: #表示定义的名称，用于binding整合
+          type: rabbit #消息组件类型
+          environment: #设置rabbitmq相关的环境
+            spring:
+              rabbitmq:
+                host: localhost
+                prot: 5672
+                username: guest
+                password: guest
+      bindings:
+        input: #这个名字是一个通道的名称
+          destination: studyExchange #表示使用的Exchange名称的定义
+          content-type: application/json #设置消息的类型，本次为json,文本则设置为text/plain
+          binder:
+            - ${spring.cloud.stream.binders.defaultRabbit} #设置要绑定的消息服务的具体设置
+          group: loocc #指定组名都叫loocc后，8803和8802不会重复消费，而是竞争
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 2 #设置心跳的时候间隔
+    lease-expiration-duration-in-seconds: 5 #
+    instance-id: receive-8803.com #在信息表示时，显示主机名称
+    prefer-ip-address: true #访问路径变成ip
