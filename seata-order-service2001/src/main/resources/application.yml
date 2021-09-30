@@ -1,0 +1,38 @@
+server:
+  port: 2001
+
+#seata:
+#  enabled: true
+#  application-id: ${spring.application.name}
+#  enable-auto-data-source-proxy: true
+
+
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    alibaba:
+      seata:
+        #与file.conf中的对应
+        tx-service-group: fsp_tx_group
+#        tx-service-group: serverAddr
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    password: 1460088689
+    url: jdbc:mysql://localhost:3306/seata_order?characterEncoding=utf8&allowPublicKeyRetrieval=true&connectTimeout=10000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+feign:
+  hystrix:
+    enabled: false
+
+logging:
+  level:
+    io:
+      seata: info
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

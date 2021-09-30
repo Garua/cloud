@@ -10,6 +10,7 @@ public class PaymentController {
 
     @Value("${server.port}")
     private String serverPort;
+
     @GetMapping("/payment/nacos/{id}")
     public String getPayment(@PathVariable("id") Integer id){
         return "nacos registry,serverport:"+serverPort+"\t id"+id;

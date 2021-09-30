@@ -1,0 +1,31 @@
+server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-storage-service
+  cloud:
+    alibaba:
+      seata:
+        #与file.conf中的对应
+        tx-service-group: fsp_tx_group
+    #        tx-service-group: serverAddr
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    password: 1460088689
+    url: jdbc:mysql://localhost:3306/seata_storage?characterEncoding=utf8&connectTimeout=10000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+feign:
+  hystrix:
+    enabled: false
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
